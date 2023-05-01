@@ -1,3 +1,5 @@
 [user]
 	name = Dimitri Missoh
 	email = dimitri.missoh@maibornwolff.de
+[alias]
+	ladog = log --all --decorate --oneline --graph
