@@ -1,0 +1,35 @@
+live_config_reload = true
+
+[font]
+size = 15.0
+
+#[font.normal]
+#family = "SFMono Nerd Font"
+#style = "Regular"
+
+[font.bold]
+# family = "JetBrainsMono Nerd Font"
+family = "MesloLGS NF"
+style = "Heavy"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Heavy Italic"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Medium Italic"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Medium"
+
+[window]
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.95
+
+[window.padding]
+x = 18
+y = 16
+
