@@ -3,3 +3,6 @@
 	email = dimitri.missoh@maibornwolff.de
 [alias]
 	ladog = log --all --decorate --oneline --graph
+[gitbutler]
+	aiOpenAIKeyOption = bringYourOwn
+	aiOpenAIModelName = gpt-4o

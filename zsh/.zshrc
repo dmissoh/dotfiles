@@ -77,7 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting shellfirm)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting shellfirm zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -114,6 +114,8 @@ source $ZSH/oh-my-zsh.sh
 
 eval "$(zoxide init zsh)"
 
+eval $(thefuck --alias)
+
 export GRAPHVIZ_DOT=/opt/homebrew/bin/dot
 
 export GOPATH=~/go
@@ -126,23 +128,100 @@ export PATH="$GOPATH/bin:${PATH}"
 # ls
 TREE_IGNORE="cache|log|logs|node_modules|vendor"
 
-alias l=' exa --group-directories-first'
-alias ls=' exa --group-directories-first'
+alias l=' eza --header --time-style relative --group-directories-first'
+alias ls=' eza --group-directories-first'
 alias la=' ls -a'
-alias ll=' ls --git -l'
+alias ll=' ls --header --icons=always --git -l'
 alias lt=' ls --tree -D -L 2 -I ${TREE_IGNORE}'
 alias ltt=' ls --tree -D -L 3 -I ${TREE_IGNORE}'
 alias lttt=' ls --tree -D -L 4 -I ${TREE_IGNORE}'
 alias ltttt=' ls --tree -D -L 5 -I ${TREE_IGNORE}'
+alias llt='eza -l --header -T --time-style relative --group-directories-first'
 
-#alias vim="nvim"
 alias cd="z"
 alias zz="z -"
 alias rm="trash"
 alias nix="nix-shell"
 alias kuka='bash ~/dev/ssh-to-kuka-mac.sh'
+alias vim="lvim"
+alias gitreport="/Users/dimitri.missoh/dev/workspace/private/gitactivity2md/run_gitactivity.sh"
+alias storyhelper="/Users/dimitri.missoh/dev/workspace/private/git_workflow_helper/git_workflow_helper.py"
+
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 
 # zsh
 eval "$(navi widget zsh)"
 
 export PATH=$PATH:~/dev
+export PATH=~/.local/bin:$PATH
+
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+export PATH="$PATH:export PATH=”$PATH:/Users/dimitri.missoh/dev/sdk/flutter/bin"
+export PATH="/Users/dimitri.missoh/.local/bin:${PATH}"
+
+
+# .NET Core
+export PATH="$PATH:/Users/$USER/.dotnet/tools"
+export PATH="/Users/dimitri.missoh/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+eval "$(fzf --zsh)"
+
+# -- Use fd instead of fzf --
+
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+
+# --- setup fzf theme ---
+fg="#CBE0F0"
+bg="#011628"
+bg_highlight="#143652"
+purple="#B388FF"
+blue="#06BCE4"
+cyan="#2CF9ED"
+
+export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
+
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo $'{}"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
+  esac
+}
+
+eval "$(atuin init zsh)"
+. "$HOME/.atuin/bin/env"
