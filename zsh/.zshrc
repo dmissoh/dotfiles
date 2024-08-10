@@ -230,36 +230,6 @@ _fzf_comprun() {
 eval "$(atuin init zsh)"
 . "$HOME/.atuin/bin/env"
 
-echo 'eval "$(zellij setup --generate-auto-start zsh)"' >> ~/.zshrc
-
 neofetch
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
+
+bindkey -v
